@@ -47,6 +47,12 @@ const permissionList: IPermissionBox[] = [
 ];
 
 function Permission() {
+  const buttonList = [
+    {
+      title: '확인',
+      onPress: () => {},
+    },
+  ];
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
@@ -77,7 +83,7 @@ function Permission() {
           </View>
         ))}
       </View>
-      <Button title="확인" onPress={() => {}} />
+      <Button buttonList={buttonList} />
     </View>
   );
 }

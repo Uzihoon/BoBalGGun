@@ -7,8 +7,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginBottom: 36,
   },
+  box: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
   button: {
     backgroundColor: Color.theme,
+    flex: 1,
     height: 55,
     alignItems: 'center',
     justifyContent: 'center',
