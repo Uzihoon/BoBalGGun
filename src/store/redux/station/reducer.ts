@@ -4,7 +4,7 @@ import {Map} from 'immutable';
 import {SET_DATA} from './actions';
 
 const initialState: StationState = Map({
-  colorList: {
+  colorList: Map({
     '01호선': '#263c96',
     '02호선': '#3cb44a',
     '03호선': '#f57305',
@@ -29,7 +29,7 @@ const initialState: StationState = Map({
     서해선: '#8bc53e',
     김포도시철도: '#96710b',
     인천1호선: '#6f99d0',
-  },
+  }),
 });
 
 const status = createReducer<StationState, StationAction>(initialState, {
@@ -38,3 +38,5 @@ const status = createReducer<StationState, StationAction>(initialState, {
     return state.set(key, value);
   },
 });
+
+export default status;
