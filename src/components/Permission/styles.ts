@@ -2,9 +2,14 @@ import {StyleSheet} from 'react-native';
 import {Color} from '../../styles/common';
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 40,
+  },
   wrapper: {
     backgroundColor: '#ffffff',
     padding: 27,
+    flex: 1,
   },
   logo: {
     width: 64,
@@ -52,6 +57,12 @@ const styles = StyleSheet.create({
   innerSubTitle: {
     fontSize: 15.5,
     color: Color.lightGray,
+  },
+  button: {
+    backgroundColor: Color.theme,
+    color: '#ffffff',
+    height: 55,
+    fontSize: 20,
   },
 });
 
