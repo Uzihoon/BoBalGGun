@@ -14,6 +14,7 @@
     "immutable": "^4.0.0-rc.12",
     "react": "16.11.0",
     "react-native": "0.62.2",
+    "react-native-open-settings": "^1.0.1",
     "react-native-permissions": "^2.1.2",
     "react-native-splash-screen": "^3.2.0",
     "react-redux": "^7.2.0",

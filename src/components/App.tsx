@@ -36,6 +36,6 @@ function App() {
         console.log('error');
       });
   }, []);
-  return <Analysis />;
+  return <Permission />;
 }
 export default App;

@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './styles';
-import {SafeAreaView, ScrollView, Text, View, Image} from 'react-native';
+import {Text, View, Image} from 'react-native';
 import Logo from '../../assets/logo.png';
 import Placeholder from '../../assets/placeholder.png';
 import Notification from '../../assets/notification.png';
 import Button from '../../components/Button';
+import SettingModal from '../SettingModal';
 
 interface IPermissionBox {
   title: string;
@@ -84,6 +85,7 @@ function Permission() {
         ))}
       </View>
       <Button buttonList={buttonList} />
+      <SettingModal />
     </View>
   );
 }
