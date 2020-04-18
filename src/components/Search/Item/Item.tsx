@@ -1,15 +1,28 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import styles from './styles';
+import {View, Text, TouchableOpacity} from 'react-native';
+import {useStationGet} from '../../../hooks/lib';
 
 interface IItemProps {
   station: string;
-  color: string;
 }
 
-function Item({station, color}: IItemProps) {
+function Item({station}: IItemProps) {
+  const lineInfo = useStationGet('lineInfo');
   return (
-    <View style={}>
-      <Text>{station}</Text>
+    <View style={styles.wrapper}>
+      <View
+        style={{
+          ...styles.lineIcon,
+          backgroundColor: lineInfo.getIn([station, 'color']),
+        }}>
+        <Text style={styles.lineText}>
+          {lineInfo.getIn([station, 'title'])}
+        </Text>
+      </View>
+      <TouchableOpacity>
+        <Text style={styles.touchText}>지하철역 전체보기</Text>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -3,8 +3,9 @@ import Permission from './Permission';
 import Confirmation from './Confirmation';
 import Analysis from './Analysis';
 import Search from './Search';
+import Empty from './Empty';
 
 function App() {
-  return <Search />;
+  return <Empty />;
 }
 export default App;

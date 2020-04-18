@@ -2,19 +2,33 @@ import {StyleSheet} from 'react-native';
 import {Color} from '../../styles/common';
 
 const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: '#f2f3f9',
+  container: {
+    flex: 1,
   },
   searchBox: {
-    flex: 1,
     height: 61,
-    marginBottom: 13,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 21,
+  },
+  icon: {
+    width: 21,
+    height: 21,
+    marginRight: 13,
   },
   search: {
     height: 61,
     flex: 1,
-    padding: 18,
     fontSize: 18,
+  },
+  flatList: {
+    flex: 1,
+    borderColor: '#f2f3f9',
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    paddingRight: 15,
+    paddingLeft: 15,
   },
 });
 
