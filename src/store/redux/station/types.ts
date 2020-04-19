@@ -12,7 +12,7 @@ export interface ISationState {
 export type StationState = IImmutableMap<ISationState>;
 
 export interface ISetData {
-  key: keyof StationState;
+  key: keyof ISationState;
   value: any;
 }
 

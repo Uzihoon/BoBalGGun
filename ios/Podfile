@@ -45,10 +45,11 @@ def flipper_post_install(installer)
 end
 
 permissions_path = '../node_modules/react-native-permissions/ios'
-5
+
 target 'BoBalGGun' do
   # Pods for BoBalGGun
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
+  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
 
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"

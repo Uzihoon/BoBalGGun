@@ -1,11 +1,19 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from './styles';
-import {Text, View, Image} from 'react-native';
+import {RESULTS, check, PERMISSIONS} from 'react-native-permissions';
+
+// Hooks
+import {useStatusGet} from '../../hooks/lib';
+
+// Components
+import {Text, View, Image, AppState} from 'react-native';
+import Button from '../../components/Button';
+import SettingModal from '../SettingModal';
+
+// Assets
 import Logo from '../../assets/logo.png';
 import Placeholder from '../../assets/placeholder.png';
 import Notification from '../../assets/notification.png';
-import Button from '../../components/Button';
-import SettingModal from '../SettingModal';
 
 interface IPermissionBox {
   title: string;
@@ -48,12 +56,44 @@ const permissionList: IPermissionBox[] = [
 ];
 
 function Permission() {
+  const [visible, setVisible] = useState(false);
+  const permission = useStatusGet('permission');
+
   const buttonList = [
     {
       title: '확인',
-      onPress: () => {},
+      onPress: async () => {
+        const result = await getPermission();
+        if (result !== RESULTS.GRANTED) {
+          setVisible(true);
+          return;
+        }
+      },
     },
   ];
+
+  const getPermission = async () => {
+    const result = await check(PERMISSIONS.IOS.LOCATION_ALWAYS);
+    return result;
+  };
+
+  const handlePermisison = async () => {
+    const result = await getPermission();
+    setVisible(result === RESULTS.BLOCKED);
+  };
+
+  useEffect(() => {
+    setVisible(permission === RESULTS.BLOCKED);
+  }, [permission]);
+
+  useEffect(() => {
+    AppState.addEventListener('change', handlePermisison);
+
+    return () => {
+      AppState.removeEventListener('change', handlePermisison);
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
@@ -85,7 +125,7 @@ function Permission() {
         ))}
       </View>
       <Button buttonList={buttonList} />
-      <SettingModal />
+      <SettingModal visible={visible} />
     </View>
   );
 }

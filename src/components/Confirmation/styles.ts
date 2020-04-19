@@ -1,8 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Color} from '../../styles/common';
 
-const todo = '#3cb44a';
-
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
@@ -20,7 +18,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   line: {
-    backgroundColor: todo,
     height: 73,
     alignSelf: 'stretch',
     marginTop: 58,
@@ -54,7 +51,6 @@ const styles = StyleSheet.create({
     height: 190,
     borderRadius: 190 / 2,
     borderWidth: 9.7,
-    borderColor: todo,
     backgroundColor: '#ffffff',
     textAlign: 'center',
   },
@@ -66,13 +62,11 @@ const styles = StyleSheet.create({
   },
   lineInfo: {
     fontSize: 23,
-    color: todo,
     fontWeight: 'bold',
   },
   stationInfo: {
     marginTop: 3,
     fontSize: 31,
-    color: todo,
     fontWeight: 'bold',
   },
   confirm: {

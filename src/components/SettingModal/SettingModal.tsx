@@ -1,16 +1,24 @@
 import React from 'react';
 import styles from './styles';
-import {Modal, Text, View, TouchableHighlight} from 'react-native';
+import {Modal, Text, View, TouchableHighlight, Linking} from 'react-native';
 
-function SettingModal() {
+interface ISettingModalProps {
+  visible: boolean;
+}
+
+function SettingModal({visible}: ISettingModalProps) {
+  const handlePress = () => {
+    Linking.canOpenURL('app-settings:')
+      .then((supported) => {
+        Linking.openURL('app-settings:');
+      })
+      .catch((error) => {
+        Linking.openSettings();
+      });
+  };
+
   return (
-    <Modal
-      onRequestClose={() => {
-        console.log('a');
-      }}
-      transparent={true}
-      animationType="slide"
-      visible={true}>
+    <Modal transparent={true} visible={visible}>
       <View style={styles.wrapper}>
         <View style={styles.modal}>
           <View style={styles.setting}>
@@ -19,7 +27,7 @@ function SettingModal() {
             </Text>
             <Text style={styles.desc}>휴대폰 설정 > 보발꾼</Text>
           </View>
-          <TouchableHighlight style={styles.button}>
+          <TouchableHighlight style={styles.button} onPress={handlePress}>
             <Text style={styles.buttonText}>지금 설정</Text>
           </TouchableHighlight>
         </View>
