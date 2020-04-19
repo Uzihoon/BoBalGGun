@@ -18,6 +18,15 @@ export interface ISetData {
 }
 
 export interface ITarget {
-  code: string;
+  color: string;
   state: boolean;
+  line: string;
+  prev: IStation;
+  next: IStation;
+  current: IStation;
+}
+
+interface IStation {
+  code: string;
+  stationNm: string;
 }
