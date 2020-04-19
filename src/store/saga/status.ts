@@ -1,4 +1,4 @@
-import {put, all, call, select} from 'redux-saga/effects';
+import {put, all, call, select, delay} from 'redux-saga/effects';
 import {check, PERMISSIONS} from 'react-native-permissions';
 import {IAction} from './types';
 import {GeolocationResponse} from '@react-native-community/geolocation';
@@ -40,6 +40,7 @@ export function* getStation(action: IAction<GeolocationResponse>) {
     const {payload: location} = action;
 
     // TODO: get station
+    yield delay(5000);
     const station = '0227';
 
     const stationData = stationList.DATA;

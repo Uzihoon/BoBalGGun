@@ -4,7 +4,9 @@ import {View, Image, Text} from 'react-native';
 import Logo from 'src/assets/logo.png';
 import {displayName} from '../../../app.json';
 import useStatusActions from 'src/hooks/status/useStatusActions';
-import {useStatusGet} from 'hooks/lib';
+import {useStatusGet} from 'src/hooks/lib';
+import {RESULTS} from 'react-native-permissions';
+import {pushPermission, pushConfirmation} from 'src/navigation';
 
 function Initial() {
   const statusActions = useStatusActions();
@@ -13,6 +15,15 @@ function Initial() {
   useEffect(() => {
     statusActions.onInitialCheck();
   }, []);
+
+  useEffect(() => {
+    if (!permission) return;
+    if (permission !== RESULTS.GRANTED) {
+      pushPermission();
+    } else {
+      pushConfirmation();
+    }
+  }, [permission]);
 
   return (
     <View style={styles.wrapper}>
