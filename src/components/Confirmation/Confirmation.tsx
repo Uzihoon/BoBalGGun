@@ -36,7 +36,6 @@ function Confirmation() {
   };
 
   useEffect(() => {
-    console.log(new Date());
     if (!target) getLocation();
   }, []);
 

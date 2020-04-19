@@ -2,25 +2,19 @@
  * @format
  */
 import {Navigation} from 'react-native-navigation';
+import {registerScreens} from './src/screens';
 import {AppRegistry} from 'react-native';
 import Root from './src/Root';
 import {name as appName} from './app.json';
 
-// Navigation.registerComponent(`com.${appName}.WelcomeScreen`, () => Root);
-// Navigation.events().registerAppLaunchedListener(() => {
-//   Navigation.setRoot({
-//     root: {
-//       stack: {
-//         children: [
-//           {
-//             component: {
-//               name: `com.${appName}.WelcomeScreen`,
-//             },
-//           },
-//         ],
-//       },
-//     },
-//   });
-// });
+registerScreens();
 
-AppRegistry.registerComponent(appName, () => Root);
+Navigation.events().registerAppLaunchedListener(() => {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: 'Initializing',
+      },
+    },
+  });
+});
