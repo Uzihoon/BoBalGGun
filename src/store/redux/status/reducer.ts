@@ -6,7 +6,7 @@ import {RESULTS} from 'react-native-permissions';
 
 const initialState: StatusState = Map({
   initialCheck: false,
-  permission: RESULTS.DENIED,
+  permission: null,
   target: null,
 });
 

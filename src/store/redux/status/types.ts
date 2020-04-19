@@ -6,7 +6,7 @@ export type StatusAction = ActionType<typeof actions>;
 
 export interface IStatusState {
   initialCheck: boolean;
-  permission: string;
+  permission: null | string;
   target: null | ITarget;
 }
 

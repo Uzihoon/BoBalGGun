@@ -2,8 +2,8 @@ import React, {useEffect} from 'react';
 import {request, check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 // Hooks
-import useStatusActions from '../hooks/status/useStatusActions';
-import {useStatusGet} from '../hooks/lib';
+import useStatusActions from 'src/hooks/status/useStatusActions';
+import {useStatusGet} from 'src/hooks/lib';
 
 // Components
 import Permission from './Permission';
