@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     height: 73,
   },
   betweenText: {
-    fontSize: 18,
+    // fontSize: 18,
     color: '#ffffff',
     fontWeight: 'bold',
   },
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
   },
   stationInfo: {
     marginTop: 3,
-    fontSize: 31,
     fontWeight: 'bold',
   },
   confirm: {

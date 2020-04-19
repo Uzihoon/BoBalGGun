@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, StyleSheet} from 'react-native';
 import styles from './styles';
 import Button from '../Button';
 import Arrow from '../../assets/arrow.png';
@@ -36,6 +36,7 @@ function Confirmation() {
   };
 
   useEffect(() => {
+    console.log(new Date());
     if (!target) getLocation();
   }, []);
 
@@ -45,34 +46,57 @@ function Confirmation() {
     <View style={styles.wrapper}>
       <Text style={styles.desc}>현재 알고 싶은 역은...</Text>
       <View style={styles.confirmBox}>
-        <View style={{...styles.line, backgroundColor: target.color}}>
+        <View style={[styles.line, {backgroundColor: target.color}]}>
           {target.prev.stationNm !== '' ? (
-            <View style={{...styles.betweenStation, marginRight: 95}}>
+            <View style={[styles.betweenStation, {marginRight: 95}]}>
               <Image source={Arrow} style={styles.icon} />
-              <Text style={styles.betweenText}>{target.prev.stationNm}</Text>
+              <Text
+                style={[
+                  styles.betweenText,
+                  {
+                    fontSize: target.prev.stationNm.length > 7 ? 12 : 18,
+                  },
+                ]}>
+                {target.prev.stationNm}
+              </Text>
             </View>
           ) : (
-            <View style={{...styles.betweenStation, marginRight: 95}} />
+            <View style={[styles.betweenStation, {marginRight: 95}]} />
           )}
           {target.next.stationNm !== '' ? (
-            <View style={{...styles.betweenStation, marginLeft: 95}}>
+            <View style={[styles.betweenStation, {marginLeft: 95}]}>
               <Image
                 source={Arrow}
-                style={{...styles.icon, transform: [{rotateY: '180deg'}]}}
+                style={[styles.icon, {transform: [{rotateY: '180deg'}]}]}
               />
-              <Text style={styles.betweenText}>{target.next.stationNm}</Text>
+              <Text
+                style={[
+                  styles.betweenText,
+                  {
+                    fontSize: target.next.stationNm.length > 7 ? 14 : 18,
+                  },
+                ]}>
+                {target.next.stationNm}
+              </Text>
             </View>
           ) : (
-            <View style={{...styles.betweenStation, marginLeft: 95}} />
+            <View style={[styles.betweenStation, {marginLeft: 95}]} />
           )}
         </View>
         <View style={styles.infoBox}>
-          <View style={{...styles.info, borderColor: target.color}}>
+          <View style={[styles.info, {borderColor: target.color}]}>
             <View style={styles.infoText}>
-              <Text style={{...styles.lineInfo, color: target.color}}>
+              <Text style={[styles.lineInfo, {color: target.color}]}>
                 {target.line}
               </Text>
-              <Text style={{...styles.stationInfo, color: target.color}}>
+              <Text
+                style={[
+                  styles.stationInfo,
+                  {
+                    color: target.color,
+                    fontSize: target.current.stationNm.length > 7 ? 20 : 31,
+                  },
+                ]}>
                 {target.current.stationNm}
               </Text>
             </View>

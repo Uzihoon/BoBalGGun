@@ -40,7 +40,7 @@ export function* getStation(action: IAction<GeolocationResponse>) {
     const {payload: location} = action;
 
     // TODO: get station
-    const station = '4920';
+    const station = '0227';
 
     const stationData = stationList.DATA;
     const stationIndex = stationData.findIndex(
