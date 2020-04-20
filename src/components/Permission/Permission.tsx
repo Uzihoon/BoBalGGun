@@ -14,6 +14,7 @@ import SettingModal from '../SettingModal';
 import Logo from '../../assets/logo.png';
 import Placeholder from '../../assets/placeholder.png';
 import Notification from '../../assets/notification.png';
+import {pushLoading} from 'src/navigation';
 
 interface IPermissionBox {
   title: string;
@@ -68,6 +69,7 @@ function Permission() {
           setVisible(true);
           return;
         }
+        pushLoading();
       },
     },
   ];

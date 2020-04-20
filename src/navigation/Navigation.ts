@@ -5,6 +5,8 @@ import {
   INITIAL_SCREEN,
   PERMISSION_SCREEN,
   CONFIRMATION_SCREEN,
+  LOADING_SCREEN,
+  FAILED_SCREEN,
 } from './Screens';
 
 registerScreens();
@@ -34,6 +36,26 @@ export function pushConfirmation() {
     root: {
       component: {
         name: CONFIRMATION_SCREEN,
+      },
+    },
+  });
+}
+
+export function pushLoading() {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: LOADING_SCREEN,
+      },
+    },
+  });
+}
+
+export function pushFail() {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: FAILED_SCREEN,
       },
     },
   });

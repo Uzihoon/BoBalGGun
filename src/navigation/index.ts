@@ -1,2 +1,8 @@
 export * from './Screens';
-export {pushScreen, pushPermission, pushConfirmation} from './Navigation';
+export {
+  pushScreen,
+  pushPermission,
+  pushConfirmation,
+  pushLoading,
+  pushFail,
+} from './Navigation';

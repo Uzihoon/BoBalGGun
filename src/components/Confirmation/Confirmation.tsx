@@ -1,20 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import React from 'react';
+import {View, Text, Image} from 'react-native';
 import styles from './styles';
-import Button from '../Button';
-import Arrow from '../../assets/arrow.png';
-import Loading from '../Loading';
-import {useStatusGet} from '../../hooks/lib';
-import useStatusActions from '../../hooks/status/useStatusActions';
-import Empty from '../Empty';
-import {GeolocationResponse} from '@react-native-community/geolocation';
-import {getPosition} from '../../lib';
+import Button from 'src/components/Button';
+import Arrow from 'src/assets/arrow.png';
+import Loading from 'src/components/Loading';
+import {useStatusGet} from 'src/hooks/lib';
 
 function Confirmation() {
-  const [error, setError] = useState(false);
-
   const target = useStatusGet('target');
-  const statusActions = useStatusActions();
   const buttonList = [
     {
       title: '네 맞아요',
@@ -26,21 +19,7 @@ function Confirmation() {
     },
   ];
 
-  const getLocation = async () => {
-    try {
-      const location = (await getPosition()) as GeolocationResponse;
-      statusActions.onGetStation(location);
-    } catch (erro) {
-      setError(true);
-    }
-  };
-
-  useEffect(() => {
-    if (!target) getLocation();
-  }, []);
-
   if (!target) return <Loading />;
-  if (error || (target && !target.state)) return <Empty />;
   return (
     <View style={styles.wrapper}>
       <Text style={styles.desc}>현재 알고 싶은 역은...</Text>

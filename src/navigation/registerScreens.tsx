@@ -6,11 +6,15 @@ import Provider from 'src/store/provider';
 import Initial from 'src/components/Initial';
 import Permission from 'src/components/Permission';
 import Confirmation from 'src/components/Confirmation';
+import Loading from 'src/components/Loading';
+import Empty from 'src/components/Empty';
 
 import {
   INITIAL_SCREEN,
   PERMISSION_SCREEN,
   CONFIRMATION_SCREEN,
+  LOADING_SCREEN,
+  FAILED_SCREEN,
 } from './Screens';
 
 function WrappedComponent(Component: any) {
@@ -32,4 +36,6 @@ export default function () {
   Navigation.registerComponent(CONFIRMATION_SCREEN, () =>
     WrappedComponent(Confirmation),
   );
+  Navigation.registerComponent(LOADING_SCREEN, () => WrappedComponent(Loading));
+  Navigation.registerComponent(FAILED_SCREEN, () => WrappedComponent(Empty));
 }
