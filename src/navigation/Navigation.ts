@@ -7,6 +7,8 @@ import {
   CONFIRMATION_SCREEN,
   LOADING_SCREEN,
   FAILED_SCREEN,
+  ANALYSIS_SCREEN,
+  SEARCH_SCREEN,
 } from './Screens';
 
 registerScreens();
@@ -56,6 +58,26 @@ export function pushFail() {
     root: {
       component: {
         name: FAILED_SCREEN,
+      },
+    },
+  });
+}
+
+export function pushAnalysis() {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: ANALYSIS_SCREEN,
+      },
+    },
+  });
+}
+
+export function pushSearch() {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: SEARCH_SCREEN,
       },
     },
   });

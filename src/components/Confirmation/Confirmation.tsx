@@ -5,17 +5,22 @@ import Button from 'src/components/Button';
 import Arrow from 'src/assets/arrow.png';
 import Loading from 'src/components/Loading';
 import {useStatusGet} from 'src/hooks/lib';
+import {pushAnalysis, pushSearch} from 'src/navigation';
 
 function Confirmation() {
   const target = useStatusGet('target');
   const buttonList = [
     {
       title: '네 맞아요',
-      onPress: () => {},
+      onPress: () => {
+        pushAnalysis();
+      },
     },
     {
       title: '아니요 검색할래요',
-      onPress: () => {},
+      onPress: () => {
+        pushSearch();
+      },
     },
   ];
 

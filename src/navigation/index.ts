@@ -5,4 +5,6 @@ export {
   pushConfirmation,
   pushLoading,
   pushFail,
+  pushAnalysis,
+  pushSearch,
 } from './Navigation';

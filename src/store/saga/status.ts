@@ -40,7 +40,7 @@ export function* getStation(action: IAction<GeolocationResponse>) {
     const {payload: location} = action;
 
     // TODO: get station
-    yield delay(5000);
+    yield delay(3000);
     const station = '0227';
 
     const stationData = stationList.DATA;

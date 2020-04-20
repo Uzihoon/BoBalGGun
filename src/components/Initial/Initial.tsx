@@ -18,11 +18,13 @@ function Initial() {
 
   useEffect(() => {
     if (!permission) return;
-    if (permission !== RESULTS.GRANTED) {
-      pushPermission();
-    } else {
-      pushConfirmation();
-    }
+    setTimeout(() => {
+      if (permission !== RESULTS.GRANTED) {
+        pushPermission();
+      } else {
+        pushConfirmation();
+      }
+    }, 1000);
   }, [permission]);
 
   return (

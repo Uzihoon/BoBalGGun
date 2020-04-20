@@ -1,8 +1,9 @@
 import React from 'react';
 import {TouchableOpacity, ScrollView, View, Text, Image} from 'react-native';
-import Arrow from '../../assets/arrow.png';
+import Arrow from 'src/assets/arrow.png';
 import styles from './styles';
-import Good from '../../assets/good.png';
+import Good from 'src/assets/good.png';
+import {pushSearch} from 'src/navigation';
 
 function Analysis() {
   return (
@@ -70,7 +71,7 @@ function Analysis() {
         현재 시각에 따른 기준입니다. 날씨나 특정 이벤트 등에 따라 다를 수
         있습니다.
       </Text>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => pushSearch()}>
         <Text style={styles.buttonText}>다른 역 알아보기</Text>
       </TouchableOpacity>
     </ScrollView>

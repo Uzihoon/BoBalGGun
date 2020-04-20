@@ -8,6 +8,8 @@ import Permission from 'src/components/Permission';
 import Confirmation from 'src/components/Confirmation';
 import Loading from 'src/components/Loading';
 import Empty from 'src/components/Empty';
+import Search from 'src/components/Search';
+import Analysis from 'src/components/Analysis';
 
 import {
   INITIAL_SCREEN,
@@ -15,6 +17,8 @@ import {
   CONFIRMATION_SCREEN,
   LOADING_SCREEN,
   FAILED_SCREEN,
+  ANALYSIS_SCREEN,
+  SEARCH_SCREEN,
 } from './Screens';
 
 function WrappedComponent(Component: any) {
@@ -38,4 +42,8 @@ export default function () {
   );
   Navigation.registerComponent(LOADING_SCREEN, () => WrappedComponent(Loading));
   Navigation.registerComponent(FAILED_SCREEN, () => WrappedComponent(Empty));
+  Navigation.registerComponent(ANALYSIS_SCREEN, () =>
+    WrappedComponent(Analysis),
+  );
+  Navigation.registerComponent(SEARCH_SCREEN, () => WrappedComponent(Search));
 }
