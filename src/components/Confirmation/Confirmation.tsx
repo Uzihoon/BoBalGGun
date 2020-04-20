@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from './styles';
 import Button from 'src/components/Button';
@@ -6,14 +6,17 @@ import Arrow from 'src/assets/arrow.png';
 import Loading from 'src/components/Loading';
 import {useStatusGet} from 'src/hooks/lib';
 import {pushAnalysis, pushSearch} from 'src/navigation';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 function Confirmation() {
+  const [spinner, setSpinner] = useState(false);
   const target = useStatusGet('target');
   const buttonList = [
     {
       title: '네 맞아요',
       onPress: () => {
-        pushAnalysis();
+        // pushAnalysis();
+        setSpinner(true);
       },
     },
     {
@@ -27,6 +30,11 @@ function Confirmation() {
   if (!target) return <Loading />;
   return (
     <View style={styles.wrapper}>
+      <Spinner
+        visible={spinner}
+        textContent={'혼잡도 분석하는 중...'}
+        textStyle={styles.spinnerText}
+      />
       <Text style={styles.desc}>현재 알고 싶은 역은...</Text>
       <View style={styles.confirmBox}>
         <View style={[styles.line, {backgroundColor: target.color}]}>

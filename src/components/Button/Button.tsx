@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TouchableOpacity, Text} from 'react-native';
+import {View, TouchableHighlight, Text} from 'react-native';
 import styles from './styles';
 
 interface IInfo {
@@ -16,12 +16,13 @@ function Button({buttonList}: IButtonProps) {
     <View style={styles.wrapper}>
       <View style={styles.box}>
         {buttonList.map((button) => (
-          <TouchableOpacity
+          <TouchableHighlight
             style={styles.button}
             onPress={button.onPress}
-            key={button.title}>
+            key={button.title}
+            underlayColor="#2a1b00">
             <Text style={styles.text}>{button.title}</Text>
-          </TouchableOpacity>
+          </TouchableHighlight>
         ))}
       </View>
     </View>

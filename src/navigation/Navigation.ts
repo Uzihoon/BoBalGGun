@@ -14,6 +14,20 @@ import {
 registerScreens();
 
 export function pushScreen() {
+  Navigation.setDefaultOptions({
+    animations: {
+      setRoot: {
+        alpha: {
+          from: 0,
+          to: 1,
+          duration: 400,
+          startDelay: 100,
+          interpolation: 'accelerate',
+        },
+      },
+    },
+  });
+
   Navigation.setRoot({
     root: {
       component: {
@@ -48,6 +62,19 @@ export function pushLoading() {
     root: {
       component: {
         name: LOADING_SCREEN,
+        options: {
+          animations: {
+            push: {
+              content: {
+                alpha: {
+                  from: 0,
+                  to: 1,
+                  duration: 500,
+                },
+              },
+            },
+          },
+        },
       },
     },
   });
