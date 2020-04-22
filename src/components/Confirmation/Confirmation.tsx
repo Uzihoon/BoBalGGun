@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from './styles';
 import Button from 'src/components/Button';
 import Arrow from 'src/assets/arrow.png';
 import Loading from 'src/components/Loading';
-import {useStatusGet} from 'src/hooks/lib';
+import {useStatusGet, useAnalysisGet} from 'src/hooks/lib';
 import {pushAnalysis, pushSearch} from 'src/navigation';
 import Spinner from 'react-native-loading-spinner-overlay';
 import useAnalysisActions from 'src/hooks/analysis/useAnalysisActions';
@@ -13,12 +13,12 @@ function Confirmation() {
   const [spinner, setSpinner] = useState(false);
   const target = useStatusGet('target');
   const analysisActions = useAnalysisActions();
+  const analysis = useAnalysisGet('analysis');
   const buttonList = [
     {
       title: '네 맞아요',
       onPress: () => {
         if (!target) return;
-        // pushAnalysis();
         setSpinner(true);
         analysisActions.onAnalysisStation(target);
       },
@@ -30,6 +30,11 @@ function Confirmation() {
       },
     },
   ];
+
+  useEffect(() => {
+    if (!analysis.get('analysised')) return;
+    pushAnalysis();
+  }, [analysis]);
 
   if (!target) return <Loading />;
   return (

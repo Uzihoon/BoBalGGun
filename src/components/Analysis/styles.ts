@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   line: {
-    backgroundColor: todo,
     height: 119,
     alignSelf: 'stretch',
     display: 'flex',
@@ -58,13 +57,11 @@ const styles = StyleSheet.create({
   },
   lineInfo: {
     fontSize: 18,
-    color: todo,
     fontWeight: 'bold',
   },
   stationInfo: {
     marginTop: 5,
     fontSize: 23,
-    color: todo,
     fontWeight: 'bold',
   },
   comingBox: {
@@ -72,9 +69,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
-  point: {
-    color: todo,
-  },
+
   coming: {
     textAlign: 'center',
     fontWeight: 'bold',

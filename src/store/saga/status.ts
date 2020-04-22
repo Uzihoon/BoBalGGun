@@ -41,7 +41,7 @@ export function* getStation(action: IAction<GeolocationResponse>) {
 
     // TODO: get station
     yield delay(3000);
-    const station = '0227';
+    const station = '0150';
 
     const stationData = stationList.DATA;
     const stationIndex = stationData.findIndex(

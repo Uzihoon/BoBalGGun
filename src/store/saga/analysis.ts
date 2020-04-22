@@ -3,6 +3,8 @@ import {IAction} from './types';
 import {ITarget} from '../redux/status';
 import moment from 'moment';
 import confusion from './confusion.json';
+import _ from 'lodash';
+import {fromJS} from 'immutable';
 
 import * as AnalysisActions from 'src/store/redux/analysis';
 
@@ -17,7 +19,10 @@ interface IConfusion {
   [P: string]: string;
 }
 
+const confusionList: IConfusion[] = confusion;
+
 export function* analysisStation(action: IAction<ITarget>) {
+  yield put(AnalysisActions.setData({key: 'status', value: false}));
   const {payload: target} = action;
   const targetHour = moment().format('HH');
   const weekend = moment().day();
@@ -38,8 +43,8 @@ export function* analysisStation(action: IAction<ITarget>) {
   const line = target.line;
   const id = target.current.code;
 
-  const targetStation = confusion.filter(
-    (confusion: IConfusion) =>
+  const targetStation = confusionList.filter(
+    (confusion) =>
       confusion.line === line &&
       +confusion.id === +id &&
       confusion.date === date,
@@ -49,4 +54,36 @@ export function* analysisStation(action: IAction<ITarget>) {
     yield put(AnalysisActions.setData({key: 'analysisError', value: true}));
     return;
   }
+
+  const upKey = ['외선', '상선'];
+  const downKey = ['내선', '하선'];
+
+  const analysisData = _.fromPairs(
+    targetStation.map((target) => {
+      const hour =
+        String(targetHour).length < 2 ? `0${targetHour}` : targetHour;
+      const confusion = +target[`${hour}:00`] || -1;
+      const upType = upKey.includes(target.type);
+      const key = upType ? 'up' : 'down';
+
+      let level: string;
+      if (confusion >= 0 && confusion < 25) {
+        level = 'good';
+      } else if (confusion >= 25 && confusion < 55) {
+        level = 'bad';
+      } else if (confusion >= 55 && confusion < 80) {
+        level = 'sad';
+      } else {
+        level = 'hell';
+      }
+
+      return [key, {confusion, level}];
+    }),
+  );
+  yield put(
+    AnalysisActions.setData({
+      key: 'analysis',
+      value: fromJS({...analysisData, analysised: true}),
+    }),
+  );
 }

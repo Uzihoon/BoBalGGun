@@ -1,10 +1,10 @@
 import {AnalysisState, AnalysisAction} from './types';
 import {createReducer} from 'typesafe-actions';
-import {Map} from 'immutable';
+import {Map, fromJS} from 'immutable';
 import {SET_DATA} from './actions';
 
 const initialState: AnalysisState = Map({
-  analysis: {
+  analysis: fromJS({
     up: {
       confusion: -1,
       level: 'good',
@@ -13,8 +13,8 @@ const initialState: AnalysisState = Map({
       confusion: -1,
       level: 'good',
     },
-  },
-  analysisError: false,
+    analysised: false,
+  }),
 });
 
 const status = createReducer<AnalysisState, AnalysisAction>(initialState, {

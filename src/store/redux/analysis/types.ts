@@ -5,7 +5,7 @@ import {IImmutableMap} from '../types';
 export type AnalysisAction = ActionType<typeof actions>;
 
 export interface IAnalysisState {
-  analysis: IAnalysis;
+  analysis: IImmutableMap<IAnalysis>;
   analysisError: boolean;
 }
 
@@ -17,6 +17,12 @@ export interface ISetData {
 }
 
 export interface IAnalysis {
+  up: IImmutableMap<ILevel>;
+  down: IImmutableMap<ILevel>;
+  analysised: boolean;
+}
+
+export interface ILevel {
   confusion: number;
   level: string;
 }
