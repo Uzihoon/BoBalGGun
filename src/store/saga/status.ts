@@ -98,11 +98,11 @@ export function* getStation(action: IAction<GeolocationResponse>) {
           color,
           state: true,
           prev: {
-            code: prev.station_cd || '',
+            code: prev.fr_code || '',
             stationNm: prev.station_nm || '',
           },
           next: {
-            code: next.station_cd || '',
+            code: next.fr_code || '',
             stationNm: next.station_nm || '',
           },
           current: {

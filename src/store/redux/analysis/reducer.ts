@@ -4,9 +4,17 @@ import {Map} from 'immutable';
 import {SET_DATA} from './actions';
 
 const initialState: AnalysisState = Map({
-  initialCheck: false,
-  permission: null,
-  target: null,
+  analysis: {
+    up: {
+      confusion: -1,
+      level: 'good',
+    },
+    down: {
+      confusion: -1,
+      level: 'good',
+    },
+  },
+  analysisError: false,
 });
 
 const status = createReducer<AnalysisState, AnalysisAction>(initialState, {
