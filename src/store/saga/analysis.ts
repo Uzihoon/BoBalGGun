@@ -84,7 +84,9 @@ export function* analysisStation(action: IAction<ITarget>) {
       const key = upType ? 'up' : 'down';
 
       let level: string;
-      if (confusion >= 0 && confusion < 25) {
+      if (confusion < 0) {
+        level = 'empty';
+      } else if (confusion >= 0 && confusion < 25) {
         level = 'good';
       } else if (confusion >= 25 && confusion < 55) {
         level = 'bad';

@@ -67,13 +67,22 @@ function Analysis() {
     const _comment = analysisType[iconKey].desc;
     const _source = icon[iconKey];
     const _next = type === 'up' ? target.prev.stationNm : target.next.stationNm;
-    const _percentage =
-      Math.max(100 - analysis.getIn([type, 'confusion']), 1) + '%';
+
+    let _percentage: string;
+    const confusion = analysis.getIn([type, 'confusion']);
+    if (confusion < 0) {
+      _percentage = '';
+    } else {
+      _percentage = Math.max(100 - confusion, 1) + '%';
+    }
+
     setSource(_source);
     setNext(_next);
     setPersentage(_percentage);
     setComment(_comment);
+  }, [analysis, type]);
 
+  useEffect(() => {
     return () => {
       analysisActions.onSetData({
         key: 'analysis',
@@ -90,7 +99,7 @@ function Analysis() {
         }),
       });
     };
-  }, [analysis, type]);
+  }, []);
 
   if (!target) return <Loading />;
   return (
