@@ -23,7 +23,7 @@ function Result({station}: IResultProps) {
         </Text>
       </View>
       <View>
-        <Text>{station.station_nm}</Text>
+        <Text style={styles.station}>{station.station_nm}</Text>
       </View>
     </View>
   );

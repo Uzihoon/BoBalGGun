@@ -7,6 +7,7 @@ import stationList from '../redux/station/station.json';
 // Reducer
 import * as StatusActions from '../redux/status';
 import {RootState} from '../../store/redux';
+import {ISetStation} from '../redux/status';
 
 const getStationDataFromStore = (state: RootState) => state.station;
 
@@ -42,7 +43,13 @@ export function* getStation(action: IAction<GeolocationResponse>) {
     // TODO: get station
     yield delay(3000);
     const station = '0227';
+    yield put(StatusActions.setTargetStation({station, analysis: false}));
+  } catch (error) {}
+}
 
+export function* setTargetStation(action: IAction<ISetStation>) {
+  try {
+    const {payload: station} = action;
     const stationData = stationList.DATA;
     const stationIndex = stationData.findIndex(
       (list: any) => list.station_cd === station,

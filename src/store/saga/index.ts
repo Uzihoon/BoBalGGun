@@ -16,6 +16,7 @@ function* handleStatus() {
   yield takeEvery(StatusActions.onInitialCheck, StatusSaga.onInitialCheck);
   yield takeEvery(StatusActions.getStation, StatusSaga.getStation);
   yield takeEvery(StatusActions.getPermission, StatusSaga.getPermission);
+  yield takeEvery(StatusActions.setTargetStation, StatusSaga.setTargetStation);
 }
 
 function* handleAnalysis() {

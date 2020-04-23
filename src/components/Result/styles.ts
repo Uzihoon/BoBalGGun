@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Color} from 'src/styles/common';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -10,7 +11,6 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     paddingLeft: 5,
     paddingRight: 5,
-    justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderColor: '#f4f4f4',
   },
@@ -21,13 +21,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 28 / 2,
     minWidth: 60,
+    marginRight: 20,
   },
   lineText: {
     color: '#ffffff',
     fontSize: 13,
   },
-  touchText: {
-    color: 'rgb(186,186,186)',
+  station: {
+    color: Color.darkGray,
+    fontSize: 14,
   },
 });
 

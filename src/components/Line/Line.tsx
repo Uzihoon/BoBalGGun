@@ -28,6 +28,7 @@ function Line(a: any) {
       data={list}
       renderItem={({item}) => <Result station={item} />}
       keyExtractor={(item) => item.station_cd}
+      style={styles.wrapper}
     />
   );
 }
