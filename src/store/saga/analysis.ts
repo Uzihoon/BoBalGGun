@@ -1,4 +1,4 @@
-import {put} from 'redux-saga/effects';
+import {put, delay} from 'redux-saga/effects';
 import {IAction} from './types';
 import {ITarget} from '../redux/status';
 import moment from 'moment';
@@ -22,7 +22,7 @@ interface IConfusion {
 const confusionList: IConfusion[] = confusion;
 
 export function* analysisStation(action: IAction<ITarget>) {
-  yield put(AnalysisActions.setData({key: 'status', value: false}));
+  yield delay(1000);
   const {payload: target} = action;
   const targetHour = moment().format('HH');
   const weekend = moment().day();

@@ -8,6 +8,8 @@ import bad from 'src/assets/bad.png';
 import good from 'src/assets/good.png';
 import hell from 'src/assets/hell.png';
 import sad from 'src/assets/sad.png';
+import empty from 'src/assets/empty.png';
+
 import {useAnalysisGet, useStatusGet} from 'src/hooks/lib';
 import Loading from '../Loading';
 
