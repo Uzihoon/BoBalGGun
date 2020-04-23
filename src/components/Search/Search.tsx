@@ -9,20 +9,13 @@ import {
   NativeSyntheticEvent,
   TextInputChangeEventData,
 } from 'react-native';
-import {useStationGet} from '../../hooks/lib';
+import {useStationGet} from 'src/hooks/lib';
 import Item from './Item';
-import Result from './Result';
+import Result from 'src/components/Result';
 import Empty from './Empty';
 import SearchIcon from 'src/assets/search.png';
 import stationList from 'src/store/redux/station/station.json';
-
-interface IStation {
-  line_num: string;
-  station_cd: string;
-  station_nm_eng: string;
-  station_nm: string;
-  fr_code: string;
-}
+import {IStation} from 'src/store/redux/station';
 
 let iv: any;
 

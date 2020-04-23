@@ -122,6 +122,7 @@ const initialState: StationState = Map({
       title: '김포골드',
     },
   }),
+  modalLine: null,
 });
 
 const status = createReducer<StationState, StationAction>(initialState, {

@@ -5,9 +5,9 @@ import {Image, View, Text} from 'react-native';
 
 function Empty() {
   return (
-    <View>
-      <Image source={empty} />
-      <Text>찾으시는 역이 존재하지 않아요.</Text>
+    <View style={styles.wrapper}>
+      <Image source={empty} style={styles.image} />
+      <Text style={styles.comment}>찾으시는 역이 존재하지 않아요.</Text>
     </View>
   );
 }

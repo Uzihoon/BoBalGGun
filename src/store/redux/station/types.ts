@@ -8,6 +8,7 @@ export type StationAction = ActionType<typeof actions>;
 export interface ISationState {
   lineList: List<string>;
   lineInfo: Map<string, ILineInfo>;
+  modalLine: string | null;
 }
 export type StationState = IImmutableMap<ISationState>;
 
@@ -19,4 +20,12 @@ export interface ISetData {
 export interface ILineInfo {
   title: string;
   color: string;
+}
+
+export interface IStation {
+  line_num: string;
+  station_cd: string;
+  station_nm_eng: string;
+  station_nm: string;
+  fr_code: string;
 }

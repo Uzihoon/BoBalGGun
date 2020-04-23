@@ -2,14 +2,7 @@ import React from 'react';
 import styles from './styles';
 import {View, Text} from 'react-native';
 import {useStationGet} from 'src/hooks/lib';
-
-interface IStation {
-  line_num: string;
-  station_cd: string;
-  station_nm_eng: string;
-  station_nm: string;
-  fr_code: string;
-}
+import {IStation} from 'src/store/redux/station';
 
 interface IResultProps {
   station: IStation;

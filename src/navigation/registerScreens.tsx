@@ -10,6 +10,7 @@ import Loading from 'src/components/Loading';
 import Empty from 'src/components/Empty';
 import Search from 'src/components/Search';
 import Analysis from 'src/components/Analysis';
+import Line from 'src/components/Line';
 
 import {
   INITIAL_SCREEN,
@@ -19,6 +20,7 @@ import {
   FAILED_SCREEN,
   ANALYSIS_SCREEN,
   SEARCH_SCREEN,
+  LINE_MODAL_SCREEN,
 } from './Screens';
 
 function WrappedComponent(Component: any) {
@@ -46,4 +48,5 @@ export default function () {
     WrappedComponent(Analysis),
   );
   Navigation.registerComponent(SEARCH_SCREEN, () => WrappedComponent(Search));
+  Navigation.registerComponent(LINE_MODAL_SCREEN, () => WrappedComponent(Line));
 }
