@@ -7,7 +7,7 @@ import {IStation} from 'src/store/redux/station';
 import {useStationGet} from 'src/hooks/lib';
 import useStationActions from 'src/hooks/station/useStationActions';
 
-function Line(a: any) {
+function Line() {
   const modalLine = useStationGet('modalLine');
   const stationActions = useStationActions();
   const [list, setList] = useState<IStation[]>([]);

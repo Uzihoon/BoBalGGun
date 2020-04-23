@@ -2,6 +2,7 @@ import {useDispatch} from 'react-redux';
 import {useCallback} from 'react';
 import {GeolocationResponse} from '@react-native-community/geolocation';
 import * as StatusActions from 'src/store/redux/status';
+import {ISetStation} from 'src/store/redux/status';
 
 export default function useStatusActions() {
   const dispatch = useDispatch();
@@ -16,8 +17,14 @@ export default function useStatusActions() {
     [dispatch],
   );
 
+  const onSetTargetStation = useCallback(
+    (param: ISetStation) => dispatch(StatusActions.setTargetStation(param)),
+    [dispatch],
+  );
+
   return {
     onInitialCheck,
     onGetStation,
+    onSetTargetStation,
   };
 }

@@ -1,4 +1,4 @@
-import {put, delay} from 'redux-saga/effects';
+import {put, delay, all} from 'redux-saga/effects';
 import {IAction} from './types';
 import {ITarget} from '../redux/status';
 import moment from 'moment';
@@ -49,9 +49,26 @@ export function* analysisStation(action: IAction<ITarget>) {
       +confusion.id === +id &&
       confusion.date === date,
   );
-
   if (!targetStation || targetStation.length <= 0) {
-    yield put(AnalysisActions.setData({key: 'analysisError', value: true}));
+    yield all([
+      put(AnalysisActions.setData({key: 'analysisError', value: true})),
+      put(
+        AnalysisActions.setData({
+          key: 'analysis',
+          value: fromJS({
+            up: {
+              confusion: -1,
+              level: 'empty',
+            },
+            down: {
+              confusion: -1,
+              level: 'empty',
+            },
+            analysised: true,
+          }),
+        }),
+      ),
+    ]);
     return;
   }
 
@@ -80,6 +97,7 @@ export function* analysisStation(action: IAction<ITarget>) {
       return [key, {confusion, level}];
     }),
   );
+  yield put(AnalysisActions.setData({key: 'analysisError', value: false}));
   yield put(
     AnalysisActions.setData({
       key: 'analysis',

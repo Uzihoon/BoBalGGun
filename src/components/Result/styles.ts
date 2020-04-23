@@ -31,6 +31,10 @@ const styles = StyleSheet.create({
     color: Color.darkGray,
     fontSize: 14,
   },
+  spinnerText: {
+    color: '#fff',
+    fontSize: 15,
+  },
 });
 
 export default styles;

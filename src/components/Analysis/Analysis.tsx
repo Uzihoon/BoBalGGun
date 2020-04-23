@@ -5,13 +5,13 @@ import {
   View,
   Text,
   Image,
-  StyleSheet,
   GestureResponderEvent,
   TouchableOpacity,
 } from 'react-native';
 import Arrow from 'src/assets/arrow.png';
 import styles from './styles';
 import {pushSearch} from 'src/navigation';
+import {fromJS} from 'immutable';
 
 import bad from 'src/assets/bad.png';
 import good from 'src/assets/good.png';
@@ -21,6 +21,7 @@ import empty from 'src/assets/empty.png';
 
 import {useAnalysisGet, useStatusGet} from 'src/hooks/lib';
 import Loading from '../Loading';
+import useAnalysisActions from 'src/hooks/analysis/useAnalysisActions';
 
 type IconKey = 'bad' | 'good' | 'hell' | 'sad' | 'empty';
 
@@ -28,7 +29,7 @@ const icon = {bad, good, hell, sad, empty};
 
 const analysisType = {
   sad: {
-    desc: '확률이 작아요. 서있는것 만으로도 운동이 된답니다.',
+    desc: '확률이 작아요. 서있는 것도 운동이 된답니다.',
   },
   good: {
     desc: '쾌적해요! 앉을 준비 되셨나요?',
@@ -52,6 +53,8 @@ function Analysis() {
   const [comment, setComment] = useState(analysisType.empty.desc);
   const analysis = useAnalysisGet('analysis');
   const target = useStatusGet('target');
+  const analysisError = useAnalysisGet('analysisError');
+  const analysisActions = useAnalysisActions();
 
   const handlePress = (event: GestureResponderEvent, type: string) => {
     event.preventDefault();
@@ -59,7 +62,7 @@ function Analysis() {
   };
 
   useEffect(() => {
-    if (!analysis.get('analysised') || !target) return;
+    if (!analysis.get('analysised') || !target || analysisError) return;
     const iconKey = analysis.getIn([type, 'level']) as IconKey;
     const _comment = analysisType[iconKey].desc;
     const _source = icon[iconKey];
@@ -70,6 +73,23 @@ function Analysis() {
     setNext(_next);
     setPersentage(_percentage);
     setComment(_comment);
+
+    return () => {
+      analysisActions.onSetData({
+        key: 'analysis',
+        value: fromJS({
+          up: {
+            confusion: -1,
+            level: 'empty',
+          },
+          down: {
+            confusion: -1,
+            level: 'empty',
+          },
+          analysised: false,
+        }),
+      });
+    };
   }, [analysis, type]);
 
   if (!target) return <Loading />;

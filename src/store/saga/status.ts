@@ -6,6 +6,7 @@ import stationList from '../redux/station/station.json';
 
 // Reducer
 import * as StatusActions from '../redux/status';
+import * as AnalysisAction from '../redux/analysis';
 import {RootState} from '../../store/redux';
 import {ISetStation} from '../redux/status';
 
@@ -49,19 +50,18 @@ export function* getStation(action: IAction<GeolocationResponse>) {
 
 export function* setTargetStation(action: IAction<ISetStation>) {
   try {
-    const {payload: station} = action;
+    const {station, analysis} = action.payload;
     const stationData = stationList.DATA;
     const stationIndex = stationData.findIndex(
       (list: any) => list.station_cd === station,
     );
-
     if (stationIndex < 0) {
       yield put(StatusActions.setData({key: 'target', value: {state: false}}));
       return;
     }
     const current = stationData[stationIndex];
-    let prev = stationData[stationIndex - 1];
-    let next = stationData[stationIndex + 1];
+    let prev = stationData[stationIndex - 1] || {};
+    let next = stationData[stationIndex + 1] || {};
 
     const stationStore = yield select(getStationDataFromStore);
     const lineInfo = stationStore.get('lineInfo');
@@ -97,28 +97,28 @@ export function* setTargetStation(action: IAction<ISetStation>) {
       }
     }
 
-    yield put(
-      StatusActions.setData({
-        key: 'target',
-        value: {
-          line,
-          color,
-          state: true,
-          prev: {
-            code: prev.fr_code || '',
-            stationNm: prev.station_nm || '',
-          },
-          next: {
-            code: next.fr_code || '',
-            stationNm: next.station_nm || '',
-          },
-          current: {
-            code: station,
-            stationNm: current.station_nm,
-          },
-        },
-      }),
-    );
+    const target = {
+      line,
+      color,
+      state: true,
+      prev: {
+        code: prev.fr_code || '',
+        stationNm: prev.station_nm || '',
+      },
+      next: {
+        code: next.fr_code || '',
+        stationNm: next.station_nm || '',
+      },
+      current: {
+        code: station,
+        stationNm: current.station_nm,
+      },
+    };
+    yield put(StatusActions.setData({key: 'target', value: target}));
+
+    if (analysis) {
+      yield put(AnalysisAction.analysisStation(target));
+    }
   } catch (error) {
     yield put(
       StatusActions.setData({key: 'target', value: {state: false, code: ''}}),
