@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {useStationGet} from '../../../hooks/lib';
+import {useStationGet} from 'src/hooks/lib';
 
 interface IItemProps {
   station: string;
@@ -9,13 +9,14 @@ interface IItemProps {
 
 function Item({station}: IItemProps) {
   const lineInfo = useStationGet('lineInfo');
+
   return (
     <View style={styles.wrapper}>
       <View
-        style={{
-          ...styles.lineIcon,
-          backgroundColor: lineInfo.getIn([station, 'color']),
-        }}>
+        style={[
+          styles.lineIcon,
+          {backgroundColor: lineInfo.getIn([station, 'color'])},
+        ]}>
         <Text style={styles.lineText}>
           {lineInfo.getIn([station, 'title'])}
         </Text>
