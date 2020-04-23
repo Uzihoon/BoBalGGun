@@ -1,5 +1,14 @@
-import React, {useState} from 'react';
-import {TouchableOpacity, ScrollView, View, Text, Image} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  TouchableHighlight,
+  ScrollView,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  GestureResponderEvent,
+  TouchableOpacity,
+} from 'react-native';
 import Arrow from 'src/assets/arrow.png';
 import styles from './styles';
 import {pushSearch} from 'src/navigation';
@@ -13,11 +22,13 @@ import empty from 'src/assets/empty.png';
 import {useAnalysisGet, useStatusGet} from 'src/hooks/lib';
 import Loading from '../Loading';
 
-const icon = {bad, good, hell, sad};
+type IconKey = 'bad' | 'good' | 'hell' | 'sad' | 'empty';
+
+const icon = {bad, good, hell, sad, empty};
 
 const analysisType = {
-  bad: {
-    desc: '안증수 있는 확률이 작아요. 서있는것 만으로도 운동이 된답니다.',
+  sad: {
+    desc: '확률이 작아요. 서있는것 만으로도 운동이 된답니다.',
   },
   good: {
     desc: '쾌적해요! 앉을 준비 되셨나요?',
@@ -25,15 +36,41 @@ const analysisType = {
   hell: {
     desc: '사람이 많아요. 마음의 준비를 하세요!',
   },
-  sad: {
+  bad: {
     desc: '아마도... 앉아서 갈 수 있어요',
+  },
+  empty: {
+    desc: '분석에 필요한 데이터가 부족해요',
   },
 };
 
 function Analysis() {
   const [type, setType] = useState('up');
+  const [source, setSource] = useState(empty);
+  const [next, setNext] = useState('');
+  const [persentage, setPersentage] = useState('');
+  const [comment, setComment] = useState(analysisType.empty.desc);
   const analysis = useAnalysisGet('analysis');
   const target = useStatusGet('target');
+
+  const handlePress = (event: GestureResponderEvent, type: string) => {
+    event.preventDefault();
+    setType(type);
+  };
+
+  useEffect(() => {
+    if (!analysis.get('analysised') || !target) return;
+    const iconKey = analysis.getIn([type, 'level']) as IconKey;
+    const _comment = analysisType[iconKey].desc;
+    const _source = icon[iconKey];
+    const _next = type === 'up' ? target.prev.stationNm : target.next.stationNm;
+    const _percentage =
+      Math.max(100 - analysis.getIn([type, 'confusion']), 1) + '%';
+    setSource(_source);
+    setNext(_next);
+    setPersentage(_percentage);
+    setComment(_comment);
+  }, [analysis, type]);
 
   if (!target) return <Loading />;
   return (
@@ -42,23 +79,39 @@ function Analysis() {
       style={styles.wrapper}>
       <View style={styles.confirmBox}>
         <View style={[styles.line, {backgroundColor: target.color}]}>
-          <View style={{...styles.betweenStation, marginRight: 55}}>
-            <Image source={Arrow} style={styles.icon} />
-            <Text style={styles.betweenText}>{target.prev.stationNm}</Text>
-          </View>
-          <View style={{...styles.betweenStation, marginLeft: 55}}>
-            <Image
-              source={Arrow}
-              style={{...styles.icon, transform: [{rotateY: '180deg'}]}}
-            />
-            <Text style={styles.betweenText}>{target.next.stationNm}</Text>
-          </View>
+          <TouchableHighlight
+            onPress={(e) => handlePress(e, 'up')}
+            style={[
+              type === 'up' ? styles.targetStation : styles.betweenStation,
+              {marginRight: 55},
+            ]}
+            underlayColor={target.color}>
+            <>
+              <Image source={Arrow} style={styles.icon} />
+              <Text style={styles.betweenText}>{target.prev.stationNm}</Text>
+            </>
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={(e) => handlePress(e, 'down')}
+            style={[
+              type === 'down' ? styles.targetStation : styles.betweenStation,
+              {marginLeft: 55},
+            ]}
+            underlayColor={target.color}>
+            <>
+              <Image
+                source={Arrow}
+                style={{...styles.icon, transform: [{rotateY: '180deg'}]}}
+              />
+              <Text style={styles.betweenText}>{target.next.stationNm}</Text>
+            </>
+          </TouchableHighlight>
         </View>
         <View style={styles.infoBox}>
           <View style={[styles.info, {borderColor: target.color}]}>
             <View style={styles.infoText}>
               <Text style={[styles.lineInfo, {color: target.color}]}>
-                2호선
+                {target.line}
               </Text>
               <Text style={[styles.stationInfo, {color: target.color}]}>
                 {target.current.stationNm}
@@ -74,12 +127,15 @@ function Analysis() {
         </Text>
       </View>
       <View style={styles.analysis}>
-        <Text style={styles.title}>낙성대역에서 사당 방면으로 앉아갈 확률</Text>
+        <Text
+          style={
+            styles.title
+          }>{`${target.current.stationNm}역에서 ${next} 방면으로 앉아갈 확률`}</Text>
         <View style={styles.faceBox}>
-          <Image style={styles.face} source={good} />
+          <Image style={styles.face} source={source} />
         </View>
-        <Text style={styles.percent}>52%</Text>
-        <Text style={styles.comment}>아마도.. 앉아서 갈수 있을꺼에요</Text>
+        <Text style={styles.percent}>{persentage}</Text>
+        <Text style={styles.comment}>{comment}</Text>
       </View>
       {/* <View style={styles.analysis}>
         <View style={styles.container}>

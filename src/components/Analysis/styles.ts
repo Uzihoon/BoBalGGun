@@ -29,6 +29,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 119,
+    opacity: 0.5,
+  },
+  targetStation: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 119,
+    opacity: 1,
   },
   betweenText: {
     fontSize: 18,

@@ -7,11 +7,11 @@ const initialState: AnalysisState = Map({
   analysis: fromJS({
     up: {
       confusion: -1,
-      level: 'good',
+      level: 'empty',
     },
     down: {
       confusion: -1,
-      level: 'good',
+      level: 'empty',
     },
     analysised: false,
   }),
