@@ -27,7 +27,7 @@ function Loading() {
       const point = new GeoPoint(x, y);
       const geoToTm = geoKo.convert(0, 2, point);
       const {data} = await getNearStation(geoToTm.x, geoToTm.y);
-
+      console.log(data);
       if (data.errorMessage.status !== 200) {
         setError(true);
       } else {
@@ -49,6 +49,15 @@ function Loading() {
       pushConfirmation();
     }
   }, []);
+
+  useEffect(() => {
+    if (!target) return;
+    if (target.state) {
+      pushConfirmation();
+    } else if (!target.state) {
+      setError(true);
+    }
+  }, [target]);
 
   useEffect(() => {
     if (error) pushFail();

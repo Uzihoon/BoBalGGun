@@ -16,12 +16,6 @@ registerScreens();
 
 export function pushScreen() {
   Navigation.setDefaultOptions({
-    statusBar: {
-      style: 'dark',
-    },
-  });
-
-  Navigation.setDefaultOptions({
     animations: {
       setRoot: {
         alpha: {

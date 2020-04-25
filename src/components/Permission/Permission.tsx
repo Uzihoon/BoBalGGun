@@ -15,6 +15,7 @@ import Logo from 'src/assets/logo.png';
 import Placeholder from 'src/assets/placeholder.png';
 import Notification from 'src/assets/notification.png';
 import {pushLoading} from 'src/navigation';
+import {getPosition} from 'src/lib';
 
 interface IPermissionBox {
   title: string;
@@ -42,18 +43,18 @@ const permissionList: IPermissionBox[] = [
       },
     ],
   },
-  {
-    title: '선택적 접근 권한',
-    key: 'choice',
-    child: [
-      {
-        img: Notification,
-        style: 'notification',
-        title: '알림',
-        desc: '지하철 도착 안내',
-      },
-    ],
-  },
+  // {
+  //   title: '선택적 접근 권한',
+  //   key: 'choice',
+  //   child: [
+  //     {
+  //       img: Notification,
+  //       style: 'notification',
+  //       title: '알림',
+  //       desc: '지하철 도착 안내',
+  //     },
+  //   ],
+  // },
 ];
 
 function Permission() {
@@ -65,18 +66,23 @@ function Permission() {
       title: '확인',
       onPress: async () => {
         const result = await getPermission();
-        // if (result !== RESULTS.GRANTED) {
-        //   setVisible(true);
-        //   return;
-        // }
+        if (result !== RESULTS.GRANTED) {
+          setVisible(true);
+          return;
+        }
         pushLoading();
       },
     },
   ];
 
   const getPermission = async () => {
-    const result = await check(PERMISSIONS.IOS.LOCATION_ALWAYS);
-    return result;
+    try {
+      const location = await getPosition();
+      const result = await check(PERMISSIONS.IOS.LOCATION_ALWAYS);
+      return result;
+    } catch (error) {
+      return -1;
+    }
   };
 
   const handlePermisison = async () => {
