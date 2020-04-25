@@ -27,7 +27,6 @@ function Loading() {
       const point = new GeoPoint(x, y);
       const geoToTm = geoKo.convert(0, 2, point);
       const {data} = await getNearStation(geoToTm.x, geoToTm.y);
-      console.log(data);
       if (data.errorMessage.status !== 200) {
         setError(true);
       } else {
