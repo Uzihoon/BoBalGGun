@@ -9,6 +9,7 @@ import {
   FAILED_SCREEN,
   ANALYSIS_SCREEN,
   SEARCH_SCREEN,
+  LINE_MODAL_SCREEN,
 } from './Screens';
 
 registerScreens();
@@ -52,6 +53,12 @@ export function pushConfirmation() {
     root: {
       component: {
         name: CONFIRMATION_SCREEN,
+        options: {
+          statusBar: {
+            backgroundColor: 'black',
+            style: 'dark',
+          },
+        },
       },
     },
   });
@@ -105,7 +112,34 @@ export function pushSearch() {
     root: {
       component: {
         name: SEARCH_SCREEN,
+        options: {
+          statusBar: {
+            backgroundColor: 'black',
+            style: 'dark',
+          },
+        },
       },
+    },
+  });
+}
+
+export function openSearchModal(line: string) {
+  Navigation.showModal({
+    stack: {
+      children: [
+        {
+          component: {
+            name: LINE_MODAL_SCREEN,
+            options: {
+              topBar: {
+                title: {
+                  text: line,
+                },
+              },
+            },
+          },
+        },
+      ],
     },
   });
 }

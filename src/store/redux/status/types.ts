@@ -30,3 +30,8 @@ interface IStation {
   code: string;
   stationNm: string;
 }
+
+export interface ISetStation {
+  station: string;
+  analysis: boolean;
+}

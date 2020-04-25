@@ -9,3 +9,4 @@ export const LOADING_SCREEN = setScreen('LOADING');
 export const FAILED_SCREEN = setScreen('FAILED');
 export const ANALYSIS_SCREEN = setScreen('ANALYSIS');
 export const SEARCH_SCREEN = setScreen('SEARCH');
+export const LINE_MODAL_SCREEN = setScreen('LINE_MODAL');

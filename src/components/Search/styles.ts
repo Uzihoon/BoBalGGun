@@ -4,6 +4,7 @@ import {Color} from '../../styles/common';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#ffffff',
   },
   searchBox: {
     height: 61,
@@ -20,6 +21,7 @@ const styles = StyleSheet.create({
   search: {
     height: 61,
     flex: 1,
+    color: Color.darkGray,
     fontSize: 18,
   },
   flatList: {
@@ -28,6 +30,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderTopWidth: 1,
     paddingRight: 15,
+    backgroundColor: '#ffffff',
     paddingLeft: 15,
   },
 });

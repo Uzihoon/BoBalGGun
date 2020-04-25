@@ -2,11 +2,15 @@ import {put, all, call, select, delay} from 'redux-saga/effects';
 import {check, PERMISSIONS} from 'react-native-permissions';
 import {IAction} from './types';
 import {GeolocationResponse} from '@react-native-community/geolocation';
-import stationList from '../redux/station/station.json';
+import stationList from 'src/store/redux/station/station.json';
+import GeoPoint from 'src/lib/GeoPoint';
+import GeoKo from 'src/lib/GeoKo';
 
 // Reducer
-import * as StatusActions from '../redux/status';
-import {RootState} from '../../store/redux';
+import * as StatusActions from 'src/store/redux/status';
+import * as AnalysisAction from 'src/store/redux/analysis';
+import {RootState} from 'src/store/redux';
+import {ISetStation} from 'src/store/redux/status';
 
 const getStationDataFromStore = (state: RootState) => state.station;
 
@@ -38,23 +42,32 @@ export function* getPermission() {
 export function* getStation(action: IAction<GeolocationResponse>) {
   try {
     const {payload: location} = action;
+    const x = location.coords.longitude;
+    const y = location.coords.latitude;
+    const geoKo = new GeoKo();
+    const point = new GeoPoint(x, y);
+    const geToTm = geoKo.convert(0, 2, point);
 
-    // TODO: get station
-    yield delay(3000);
-    const station = '0227';
+    // yield put(StatusActions.setTargetStation({station, analysis: false}));
+  } catch (error) {
+    yield put(StatusActions.setTargetStation({station: '0', analysis: false}));
+  }
+}
 
+export function* setTargetStation(action: IAction<ISetStation>) {
+  try {
+    const {station, analysis} = action.payload;
     const stationData = stationList.DATA;
     const stationIndex = stationData.findIndex(
       (list: any) => list.station_cd === station,
     );
-
     if (stationIndex < 0) {
       yield put(StatusActions.setData({key: 'target', value: {state: false}}));
       return;
     }
     const current = stationData[stationIndex];
-    let prev = stationData[stationIndex - 1];
-    let next = stationData[stationIndex + 1];
+    let prev = stationData[stationIndex - 1] || {};
+    let next = stationData[stationIndex + 1] || {};
 
     const stationStore = yield select(getStationDataFromStore);
     const lineInfo = stationStore.get('lineInfo');
@@ -90,28 +103,28 @@ export function* getStation(action: IAction<GeolocationResponse>) {
       }
     }
 
-    yield put(
-      StatusActions.setData({
-        key: 'target',
-        value: {
-          line,
-          color,
-          state: true,
-          prev: {
-            code: prev.station_cd || '',
-            stationNm: prev.station_nm || '',
-          },
-          next: {
-            code: next.station_cd || '',
-            stationNm: next.station_nm || '',
-          },
-          current: {
-            code: station,
-            stationNm: current.station_nm,
-          },
-        },
-      }),
-    );
+    const target = {
+      line,
+      color,
+      state: true,
+      prev: {
+        code: prev.fr_code || '',
+        stationNm: prev.station_nm || '',
+      },
+      next: {
+        code: next.fr_code || '',
+        stationNm: next.station_nm || '',
+      },
+      current: {
+        code: station,
+        stationNm: current.station_nm,
+      },
+    };
+    yield put(StatusActions.setData({key: 'target', value: target}));
+
+    if (analysis) {
+      yield put(AnalysisAction.analysisStation(target));
+    }
   } catch (error) {
     yield put(
       StatusActions.setData({key: 'target', value: {state: false, code: ''}}),

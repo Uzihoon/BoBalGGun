@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, Image, SafeAreaView, StatusBar} from 'react-native';
 import styles from './styles';
 import Button from 'src/components/Button';
 import Arrow from 'src/assets/arrow.png';
 import Loading from 'src/components/Loading';
-import {useStatusGet} from 'src/hooks/lib';
-import {pushAnalysis, pushSearch} from 'src/navigation';
+import {useStatusGet, useAnalysisGet} from 'src/hooks/lib';
+import {pushAnalysis, pushSearch, pushFail} from 'src/navigation';
 import Spinner from 'react-native-loading-spinner-overlay';
 import useAnalysisActions from 'src/hooks/analysis/useAnalysisActions';
 
@@ -13,12 +13,12 @@ function Confirmation() {
   const [spinner, setSpinner] = useState(false);
   const target = useStatusGet('target');
   const analysisActions = useAnalysisActions();
+  const analysis = useAnalysisGet('analysis');
   const buttonList = [
     {
       title: '네 맞아요',
       onPress: () => {
         if (!target) return;
-        // pushAnalysis();
         setSpinner(true);
         analysisActions.onAnalysisStation(target);
       },
@@ -31,9 +31,20 @@ function Confirmation() {
     },
   ];
 
-  if (!target) return <Loading />;
+  useEffect(() => {
+    if (!analysis.get('analysised')) return;
+    pushAnalysis();
+  }, [analysis]);
+
+  useEffect(() => {
+    if (target && !target.state) {
+      pushFail();
+    }
+  }, [target]);
+  if (!target || !target.state) return <Loading />;
   return (
-    <View style={styles.wrapper}>
+    <SafeAreaView style={styles.wrapper}>
+      <StatusBar barStyle={'dark-content'} />
       <Spinner
         visible={spinner}
         textContent={'혼잡도 분석하는 중...'}
@@ -100,7 +111,7 @@ function Confirmation() {
       </View>
       <Text style={styles.confirm}>해당 역이 맞나요?</Text>
       <Button buttonList={buttonList} />
-    </View>
+    </SafeAreaView>
   );
 }
 

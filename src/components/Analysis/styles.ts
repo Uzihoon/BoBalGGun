@@ -6,14 +6,15 @@ const todo = '#3cb44a';
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#f2f3f9',
+    flex: 1,
   },
   confirmBox: {
     flex: 1,
     alignItems: 'center',
+    marginTop: -50,
   },
   line: {
-    backgroundColor: todo,
-    height: 119,
+    height: 169,
     alignSelf: 'stretch',
     display: 'flex',
     flexDirection: 'row',
@@ -23,13 +24,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     position: 'absolute',
-    marginTop: 33,
+    marginTop: 83,
   },
   betweenStation: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     height: 119,
+    marginTop: 50,
+    opacity: 0.5,
+  },
+  targetStation: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 119,
+    marginTop: 50,
+    opacity: 1,
   },
   betweenText: {
     fontSize: 18,
@@ -58,13 +69,11 @@ const styles = StyleSheet.create({
   },
   lineInfo: {
     fontSize: 18,
-    color: todo,
     fontWeight: 'bold',
   },
   stationInfo: {
     marginTop: 5,
     fontSize: 23,
-    color: todo,
     fontWeight: 'bold',
   },
   comingBox: {
@@ -72,9 +81,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
-  point: {
-    color: todo,
-  },
+
   coming: {
     textAlign: 'center',
     fontWeight: 'bold',
