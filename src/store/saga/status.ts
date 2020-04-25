@@ -40,6 +40,7 @@ export function* getPermission() {
 export function* getStation(action: IAction<GeolocationResponse>) {
   try {
     const {payload: location} = action;
+    console.log(location);
 
     // TODO: get station
     yield delay(3000);
