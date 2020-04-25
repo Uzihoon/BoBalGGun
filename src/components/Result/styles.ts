@@ -3,6 +3,7 @@ import {Color} from 'src/styles/common';
 
 const styles = StyleSheet.create({
   wrapper: {
+    width: '100%',
     flex: 1,
     display: 'flex',
     flexDirection: 'row',

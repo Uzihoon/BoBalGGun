@@ -8,6 +8,11 @@ import useStatusActions from 'src/hooks/status/useStatusActions';
 import {pushConfirmation} from 'src/navigation';
 import {useStatusGet} from 'src/hooks/lib';
 import {pushFail} from 'src/navigation';
+import {getNearStation} from 'src/api';
+import GeoKo from 'src/lib/GeoKo';
+import GeoPoint from 'src/lib/GeoPoint';
+
+const geoKo = new GeoKo();
 
 function Loading() {
   const statusActions = useStatusActions();
@@ -17,7 +22,19 @@ function Loading() {
   const getLocation = async () => {
     try {
       const location = (await getPosition()) as GeolocationResponse;
-      statusActions.onGetStation(location);
+      const x = location.coords.longitude;
+      const y = location.coords.latitude;
+      const point = new GeoPoint(x, y);
+      const geoToTm = geoKo.convert(0, 2, point);
+      const {data} = await getNearStation(geoToTm.x, geoToTm.y);
+
+      if (data.errorMessage.status !== 200) {
+        setError(true);
+      } else {
+        const id = data.stationList[0].statnId;
+        const station = id.slice(id.length - 4, id.length);
+        statusActions.onSetTargetStation({station, analysis: false});
+      }
     } catch (error) {
       setError(true);
     }

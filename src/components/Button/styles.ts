@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     justifyContent: 'flex-end',
-    marginBottom: 36,
+    // marginBottom: 36,
   },
   box: {
     display: 'flex',

@@ -1,3 +1,5 @@
+import GeoPoint from './GeoPoint';
+
 export default class GeoKo {
   public GEO = 0;
   public KATEC = 1;

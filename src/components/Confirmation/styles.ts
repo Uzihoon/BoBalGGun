@@ -4,7 +4,7 @@ import {Color} from '../../styles/common';
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    marginTop: 50,
+    backgroundColor: '#ffffff',
   },
   desc: {
     marginTop: 128,

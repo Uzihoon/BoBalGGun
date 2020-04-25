@@ -6,10 +6,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#ffffff',
   },
   image: {
-    width: 160,
-    height: 160,
+    width: 120,
+    height: 120,
     marginBottom: 50,
     opacity: 0.1,
   },

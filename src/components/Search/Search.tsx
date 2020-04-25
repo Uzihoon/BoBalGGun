@@ -16,6 +16,7 @@ import Empty from './Empty';
 import SearchIcon from 'src/assets/search.png';
 import stationList from 'src/store/redux/station/station.json';
 import {IStation} from 'src/store/redux/station';
+import {Color} from 'src/styles/common';
 
 let iv: any;
 
@@ -56,6 +57,7 @@ function Search() {
           placeholder="지하철역을 입력해 주세요"
           onChange={handleSearch}
           clearButtonMode="always"
+          placeholderTextColor={Color.lightGray}
         />
       </View>
       {!filterList ? (

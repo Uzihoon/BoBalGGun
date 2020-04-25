@@ -2,13 +2,15 @@ import {put, all, call, select, delay} from 'redux-saga/effects';
 import {check, PERMISSIONS} from 'react-native-permissions';
 import {IAction} from './types';
 import {GeolocationResponse} from '@react-native-community/geolocation';
-import stationList from '../redux/station/station.json';
+import stationList from 'src/store/redux/station/station.json';
+import GeoPoint from 'src/lib/GeoPoint';
+import GeoKo from 'src/lib/GeoKo';
 
 // Reducer
-import * as StatusActions from '../redux/status';
-import * as AnalysisAction from '../redux/analysis';
-import {RootState} from '../../store/redux';
-import {ISetStation} from '../redux/status';
+import * as StatusActions from 'src/store/redux/status';
+import * as AnalysisAction from 'src/store/redux/analysis';
+import {RootState} from 'src/store/redux';
+import {ISetStation} from 'src/store/redux/status';
 
 const getStationDataFromStore = (state: RootState) => state.station;
 
@@ -40,13 +42,16 @@ export function* getPermission() {
 export function* getStation(action: IAction<GeolocationResponse>) {
   try {
     const {payload: location} = action;
-    console.log(location);
+    const x = location.coords.longitude;
+    const y = location.coords.latitude;
+    const geoKo = new GeoKo();
+    const point = new GeoPoint(x, y);
+    const geToTm = geoKo.convert(0, 2, point);
 
-    // TODO: get station
-    yield delay(3000);
-    const station = '0227';
-    yield put(StatusActions.setTargetStation({station, analysis: false}));
-  } catch (error) {}
+    // yield put(StatusActions.setTargetStation({station, analysis: false}));
+  } catch (error) {
+    yield put(StatusActions.setTargetStation({station: '0', analysis: false}));
+  }
 }
 
 export function* setTargetStation(action: IAction<ISetStation>) {

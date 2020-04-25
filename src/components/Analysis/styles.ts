@@ -10,9 +10,10 @@ const styles = StyleSheet.create({
   confirmBox: {
     flex: 1,
     alignItems: 'center',
+    marginTop: -50,
   },
   line: {
-    height: 119,
+    height: 169,
     alignSelf: 'stretch',
     display: 'flex',
     flexDirection: 'row',
@@ -22,13 +23,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     position: 'absolute',
-    marginTop: 33,
+    marginTop: 83,
   },
   betweenStation: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     height: 119,
+    marginTop: 50,
     opacity: 0.5,
   },
   targetStation: {
@@ -36,6 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 119,
+    marginTop: 50,
     opacity: 1,
   },
   betweenText: {

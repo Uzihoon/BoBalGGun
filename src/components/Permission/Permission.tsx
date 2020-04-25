@@ -3,17 +3,17 @@ import styles from './styles';
 import {RESULTS, check, PERMISSIONS} from 'react-native-permissions';
 
 // Hooks
-import {useStatusGet} from '../../hooks/lib';
+import {useStatusGet} from 'src/hooks/lib';
 
 // Components
-import {Text, View, Image, AppState} from 'react-native';
-import Button from '../../components/Button';
+import {Text, View, Image, AppState, SafeAreaView} from 'react-native';
+import Button from 'src/components/Button';
 import SettingModal from '../SettingModal';
 
 // Assets
-import Logo from '../../assets/logo.png';
-import Placeholder from '../../assets/placeholder.png';
-import Notification from '../../assets/notification.png';
+import Logo from 'src/assets/logo.png';
+import Placeholder from 'src/assets/placeholder.png';
+import Notification from 'src/assets/notification.png';
 import {pushLoading} from 'src/navigation';
 
 interface IPermissionBox {
@@ -65,10 +65,10 @@ function Permission() {
       title: '확인',
       onPress: async () => {
         const result = await getPermission();
-        if (result !== RESULTS.GRANTED) {
-          setVisible(true);
-          return;
-        }
+        // if (result !== RESULTS.GRANTED) {
+        //   setVisible(true);
+        //   return;
+        // }
         pushLoading();
       },
     },
@@ -97,7 +97,7 @@ function Permission() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
         <View>
           <Image source={Logo} style={styles.logo} />
@@ -128,7 +128,7 @@ function Permission() {
       </View>
       <Button buttonList={buttonList} />
       <SettingModal visible={visible} />
-    </View>
+    </SafeAreaView>
   );
 }
 

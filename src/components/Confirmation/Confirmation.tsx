@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, SafeAreaView} from 'react-native';
 import styles from './styles';
 import Button from 'src/components/Button';
 import Arrow from 'src/assets/arrow.png';
 import Loading from 'src/components/Loading';
 import {useStatusGet, useAnalysisGet} from 'src/hooks/lib';
-import {pushAnalysis, pushSearch} from 'src/navigation';
+import {pushAnalysis, pushSearch, pushFail} from 'src/navigation';
 import Spinner from 'react-native-loading-spinner-overlay';
 import useAnalysisActions from 'src/hooks/analysis/useAnalysisActions';
 
@@ -36,9 +36,14 @@ function Confirmation() {
     pushAnalysis();
   }, [analysis]);
 
-  if (!target) return <Loading />;
+  useEffect(() => {
+    if (target && !target.state) {
+      pushFail();
+    }
+  }, [target]);
+  if (!target || !target.state) return <Loading />;
   return (
-    <View style={styles.wrapper}>
+    <SafeAreaView style={styles.wrapper}>
       <Spinner
         visible={spinner}
         textContent={'혼잡도 분석하는 중...'}
@@ -105,7 +110,7 @@ function Confirmation() {
       </View>
       <Text style={styles.confirm}>해당 역이 맞나요?</Text>
       <Button buttonList={buttonList} />
-    </View>
+    </SafeAreaView>
   );
 }
 

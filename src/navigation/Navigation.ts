@@ -16,6 +16,12 @@ registerScreens();
 
 export function pushScreen() {
   Navigation.setDefaultOptions({
+    statusBar: {
+      style: 'dark',
+    },
+  });
+
+  Navigation.setDefaultOptions({
     animations: {
       setRoot: {
         alpha: {
@@ -53,6 +59,12 @@ export function pushConfirmation() {
     root: {
       component: {
         name: CONFIRMATION_SCREEN,
+        options: {
+          statusBar: {
+            backgroundColor: 'white',
+            style: 'dark',
+          },
+        },
       },
     },
   });

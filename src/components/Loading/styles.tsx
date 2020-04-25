@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#ffffff',
   },
   logo: {
     width: 105,

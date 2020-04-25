@@ -7,6 +7,7 @@ import {
   Image,
   GestureResponderEvent,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import Arrow from 'src/assets/arrow.png';
 import styles from './styles';
@@ -29,7 +30,7 @@ const icon = {bad, good, hell, sad, empty};
 
 const analysisType = {
   sad: {
-    desc: '확률이 작아요. 서있는 것도 운동이 된답니다.',
+    desc: '확률이 작아요.\n 서있는 것도 운동이 된답니다.',
   },
   good: {
     desc: '쾌적해요! 앉을 준비 되셨나요?',
@@ -62,7 +63,7 @@ function Analysis() {
   };
 
   useEffect(() => {
-    if (!analysis.get('analysised') || !target || analysisError) return;
+    if (!analysis.get('analysised') || !target) return;
     const iconKey = analysis.getIn([type, 'level']) as IconKey;
     const _comment = analysisType[iconKey].desc;
     const _source = icon[iconKey];
