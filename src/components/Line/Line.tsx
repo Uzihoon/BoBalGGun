@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styles from './styles';
-import {FlatList} from 'react-native';
+import {FlatList, StatusBar} from 'react-native';
 import Result from 'src/components/Result';
 import stationList from 'src/store/redux/station/station.json';
 import {IStation} from 'src/store/redux/station';
@@ -24,12 +24,15 @@ function Line() {
     };
   }, [modalLine]);
   return (
-    <FlatList
-      data={list}
-      renderItem={({item}) => <Result station={item} />}
-      keyExtractor={(item) => item.station_cd}
-      style={styles.wrapper}
-    />
+    <>
+      <StatusBar barStyle={'light-content'} />
+      <FlatList
+        data={list}
+        renderItem={({item}) => <Result station={item} />}
+        keyExtractor={(item) => item.station_cd}
+        style={styles.wrapper}
+      />
+    </>
   );
 }
 

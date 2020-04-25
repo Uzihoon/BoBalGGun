@@ -151,10 +151,10 @@ function Analysis() {
         </View>
       </View>
       <View style={styles.comingBox}>
-        <Text style={styles.coming}>
+        {/* <Text style={styles.coming}>
           열차가 <Text style={{color: target.color}}>15:00</Text> 분 후 도착할
           예정 입니다.
-        </Text>
+        </Text> */}
       </View>
       <View style={styles.analysis}>
         <Text

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, SafeAreaView} from 'react-native';
+import {View, Text, Image, SafeAreaView, StatusBar} from 'react-native';
 import styles from './styles';
 import Button from 'src/components/Button';
 import Arrow from 'src/assets/arrow.png';
@@ -44,6 +44,7 @@ function Confirmation() {
   if (!target || !target.state) return <Loading />;
   return (
     <SafeAreaView style={styles.wrapper}>
+      <StatusBar barStyle={'dark-content'} />
       <Spinner
         visible={spinner}
         textContent={'혼잡도 분석하는 중...'}

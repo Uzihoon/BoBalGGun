@@ -6,6 +6,7 @@ const todo = '#3cb44a';
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#f2f3f9',
+    flex: 1,
   },
   confirmBox: {
     flex: 1,

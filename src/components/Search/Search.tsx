@@ -7,6 +7,7 @@ import {
   TextInput,
   Image,
   NativeSyntheticEvent,
+  StatusBar,
   TextInputChangeEventData,
 } from 'react-native';
 import {useStationGet} from 'src/hooks/lib';
@@ -50,6 +51,7 @@ function Search() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle={'dark-content'} />
       <View style={styles.searchBox}>
         <Image style={styles.icon} source={SearchIcon} />
         <TextInput

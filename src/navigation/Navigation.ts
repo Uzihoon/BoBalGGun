@@ -61,7 +61,7 @@ export function pushConfirmation() {
         name: CONFIRMATION_SCREEN,
         options: {
           statusBar: {
-            backgroundColor: 'white',
+            backgroundColor: 'black',
             style: 'dark',
           },
         },
@@ -118,6 +118,12 @@ export function pushSearch() {
     root: {
       component: {
         name: SEARCH_SCREEN,
+        options: {
+          statusBar: {
+            backgroundColor: 'black',
+            style: 'dark',
+          },
+        },
       },
     },
   });
