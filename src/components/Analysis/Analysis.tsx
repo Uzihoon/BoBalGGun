@@ -8,6 +8,7 @@ import {
   GestureResponderEvent,
   TouchableOpacity,
   SafeAreaView,
+  BackHandler,
 } from 'react-native';
 import Arrow from 'src/assets/arrow.png';
 import styles from './styles';
@@ -52,6 +53,7 @@ function Analysis() {
   const [next, setNext] = useState('');
   const [persentage, setPersentage] = useState('');
   const [comment, setComment] = useState(analysisType.empty.desc);
+  const [size, setSize] = useState({left: 18, right: 18, center: 23});
   const analysis = useAnalysisGet('analysis');
   const target = useStatusGet('target');
   const analysisError = useAnalysisGet('analysisError');
@@ -62,12 +64,25 @@ function Analysis() {
     setType(type);
   };
 
+  const handlBack = () => {
+    pushSearch();
+    return true;
+  };
+
+  const checkSize = (str: string) => {
+    return str.length < 6;
+  };
+
   useEffect(() => {
     if (!analysis.get('analysised') || !target) return;
     const iconKey = analysis.getIn([type, 'level']) as IconKey;
     const _comment = analysisType[iconKey].desc;
     const _source = icon[iconKey];
     const _next = type === 'up' ? target.prev.stationNm : target.next.stationNm;
+
+    const left = checkSize(target.prev.stationNm) ? 18 : 10;
+    const right = checkSize(target.next.stationNm) ? 18 : 10;
+    const center = checkSize(target.current.stationNm) ? 23 : 11;
 
     let _percentage: string;
     const confusion = analysis.getIn([type, 'confusion']);
@@ -81,10 +96,14 @@ function Analysis() {
     setNext(_next);
     setPersentage(_percentage);
     setComment(_comment);
+    setSize({left, right, center});
   }, [analysis, type]);
 
   useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handlBack);
+
     return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handlBack);
       analysisActions.onSetData({
         key: 'analysis',
         value: fromJS({
@@ -118,7 +137,9 @@ function Analysis() {
             underlayColor={target.color}>
             <>
               <Image source={Arrow} style={styles.icon} />
-              <Text style={styles.betweenText}>{target.prev.stationNm}</Text>
+              <Text style={[styles.betweenText, {fontSize: size.left}]}>
+                {target.prev.stationNm}
+              </Text>
             </>
           </TouchableHighlight>
           <TouchableHighlight
@@ -133,7 +154,9 @@ function Analysis() {
                 source={Arrow}
                 style={{...styles.icon, transform: [{rotateY: '180deg'}]}}
               />
-              <Text style={styles.betweenText}>{target.next.stationNm}</Text>
+              <Text style={[styles.betweenText, {fontSize: size.right}]}>
+                {target.next.stationNm}
+              </Text>
             </>
           </TouchableHighlight>
         </View>
@@ -143,7 +166,11 @@ function Analysis() {
               <Text style={[styles.lineInfo, {color: target.color}]}>
                 {target.line}
               </Text>
-              <Text style={[styles.stationInfo, {color: target.color}]}>
+              <Text
+                style={[
+                  styles.stationInfo,
+                  {color: target.color, fontSize: size.center},
+                ]}>
                 {target.current.stationNm}
               </Text>
             </View>

@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
   betweenText: {
-    fontSize: 18,
     color: '#ffffff',
     fontWeight: 'bold',
   },
@@ -73,7 +72,6 @@ const styles = StyleSheet.create({
   },
   stationInfo: {
     marginTop: 5,
-    fontSize: 23,
     fontWeight: 'bold',
   },
   comingBox: {

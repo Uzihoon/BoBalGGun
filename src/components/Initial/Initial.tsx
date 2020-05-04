@@ -29,7 +29,6 @@ function Initial() {
 
   return (
     <View style={styles.wrapper}>
-      <StatusBar hidden={true} />
       <Image source={Logo} style={styles.logo} />
       <View>
         <Text style={styles.text}>{displayName}</Text>
