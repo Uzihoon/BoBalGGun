@@ -6,7 +6,7 @@ import { RESULTS, check, PERMISSIONS } from 'react-native-permissions';
 import { useStatusGet } from 'src/hooks/lib';
 
 // Components
-import { Text, View, Image, AppState, SafeAreaView, Platform } from 'react-native';
+import { Text, View, Image, AppState, SafeAreaView } from 'react-native';
 import Button from 'src/components/Button';
 import SettingModal from '../SettingModal';
 
@@ -60,6 +60,7 @@ const permissionList: IPermissionBox[] = [
 function Permission() {
   const [visible, setVisible] = useState(false);
   const permission = useStatusGet('permission');
+  const isIos = useStatusGet('isIos');
 
   const buttonList = [
     {
@@ -77,10 +78,9 @@ function Permission() {
 
   const getPermission = async () => {
     try {
+      if (isIos === null) return;
       const location = await getPosition();
-      PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
-      const ios = Platform.OS === 'ios';
-      const checkURL = ios ? PERMISSIONS.IOS.LOCATION_ALWAYS : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
+      const checkURL = isIos ? PERMISSIONS.IOS.LOCATION_ALWAYS : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
 
       const result = await check(checkURL);
       return result;

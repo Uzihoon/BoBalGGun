@@ -35,6 +35,7 @@ export function* onInitialCheck() {
   yield all([
     put(StatusActions.setData({ key: 'initialCheck', value: true })),
     put(StatusActions.setData({ key: 'permission', value: permission })),
+    put(StatusActions.setData({ key: 'isIos', value: ios }))
   ]);
 }
 

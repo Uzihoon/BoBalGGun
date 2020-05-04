@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import styles from './styles';
-import {View, Image, Text, StatusBar} from 'react-native';
+import {View, Image, Text, StatusBar, SafeAreaView} from 'react-native';
 import Logo from 'src/assets/logo.png';
 import {displayName} from '../../../app.json';
 import useStatusActions from 'src/hooks/status/useStatusActions';

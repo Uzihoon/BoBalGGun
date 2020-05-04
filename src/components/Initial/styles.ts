@@ -4,6 +4,7 @@ import {Color} from 'src/styles/common';
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    marginTop: 22,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#F9DCA7',

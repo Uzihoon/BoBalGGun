@@ -164,7 +164,7 @@ function Analysis() {
         <View style={styles.faceBox}>
           <Image style={styles.face} source={source} />
         </View>
-        <Text style={styles.percent}>{persentage}</Text>
+        {persentage !== '' && <Text style={styles.percent}>{persentage}</Text>}
         <Text style={styles.comment}>{comment}</Text>
       </View>
       {/* <View style={styles.analysis}>
