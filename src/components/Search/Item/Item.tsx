@@ -17,7 +17,7 @@ function Item({station}: IItemProps) {
     stationActions.onSetData({key: 'modalLine', value: line});
   };
   return (
-    <View style={styles.wrapper}>
+    <TouchableOpacity style={styles.wrapper}  onPress={() => handleModal(station)}>
       <View
         style={[
           styles.lineIcon,
@@ -27,10 +27,10 @@ function Item({station}: IItemProps) {
           {lineInfo.getIn([station, 'title'])}
         </Text>
       </View>
-      <TouchableOpacity onPress={() => handleModal(station)}>
+      <View>
         <Text style={styles.touchText}>지하철역 전체보기</Text>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 }
 export default Item;

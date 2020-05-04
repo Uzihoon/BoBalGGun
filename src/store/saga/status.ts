@@ -1,7 +1,8 @@
-import {put, all, call, select, delay} from 'redux-saga/effects';
-import {check, PERMISSIONS} from 'react-native-permissions';
-import {IAction} from './types';
-import {GeolocationResponse} from '@react-native-community/geolocation';
+import { put, all, call, select, delay } from 'redux-saga/effects';
+import { check, PERMISSIONS } from 'react-native-permissions';
+import { Platform } from 'react-native';
+import { IAction } from './types';
+import { GeolocationResponse } from '@react-native-community/geolocation';
 import stationList from 'src/store/redux/station/station.json';
 import GeoPoint from 'src/lib/GeoPoint';
 import GeoKo from 'src/lib/GeoKo';
@@ -9,8 +10,8 @@ import GeoKo from 'src/lib/GeoKo';
 // Reducer
 import * as StatusActions from 'src/store/redux/status';
 import * as AnalysisAction from 'src/store/redux/analysis';
-import {RootState} from 'src/store/redux';
-import {ISetStation} from 'src/store/redux/status';
+import { RootState } from 'src/store/redux';
+import { ISetStation } from 'src/store/redux/status';
 
 const getStationDataFromStore = (state: RootState) => state.station;
 
@@ -27,21 +28,27 @@ const getStationDataFromStore = (state: RootState) => state.station;
  */
 
 export function* onInitialCheck() {
-  const permission = yield call(check, PERMISSIONS.IOS.LOCATION_ALWAYS);
+  const ios = Platform.OS === 'ios';
+  const checkURL = ios ? PERMISSIONS.IOS.LOCATION_ALWAYS : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
+
+  const permission = yield call(check, checkURL);
   yield all([
-    put(StatusActions.setData({key: 'initialCheck', value: true})),
-    put(StatusActions.setData({key: 'permission', value: permission})),
+    put(StatusActions.setData({ key: 'initialCheck', value: true })),
+    put(StatusActions.setData({ key: 'permission', value: permission })),
+    put(StatusActions.setData({ key: 'isIos', value: ios }))
   ]);
 }
 
 export function* getPermission() {
-  const permission = yield call(check, PERMISSIONS.IOS.LOCATION_ALWAYS);
-  yield put(StatusActions.setData({key: 'permission', value: permission}));
+  const ios = Platform.OS === 'ios';
+  const checkURL = ios ? PERMISSIONS.IOS.LOCATION_ALWAYS : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
+  const permission = yield call(check, checkURL);
+  yield put(StatusActions.setData({ key: 'permission', value: permission }));
 }
 
 export function* getStation(action: IAction<GeolocationResponse>) {
   try {
-    const {payload: location} = action;
+    const { payload: location } = action;
     const x = location.coords.longitude;
     const y = location.coords.latitude;
     const geoKo = new GeoKo();
@@ -50,19 +57,19 @@ export function* getStation(action: IAction<GeolocationResponse>) {
 
     // yield put(StatusActions.setTargetStation({station, analysis: false}));
   } catch (error) {
-    yield put(StatusActions.setTargetStation({station: '0', analysis: false}));
+    yield put(StatusActions.setTargetStation({ station: '0', analysis: false }));
   }
 }
 
 export function* setTargetStation(action: IAction<ISetStation>) {
   try {
-    const {station, analysis} = action.payload;
+    const { station, analysis } = action.payload;
     const stationData = stationList.DATA;
     const stationIndex = stationData.findIndex(
       (list: any) => list.station_cd === station,
     );
     if (stationIndex < 0) {
-      yield put(StatusActions.setData({key: 'target', value: {state: false}}));
+      yield put(StatusActions.setData({ key: 'target', value: { state: false } }));
       return;
     }
     const current = stationData[stationIndex];
@@ -120,14 +127,14 @@ export function* setTargetStation(action: IAction<ISetStation>) {
         stationNm: current.station_nm,
       },
     };
-    yield put(StatusActions.setData({key: 'target', value: target}));
+    yield put(StatusActions.setData({ key: 'target', value: target }));
 
     if (analysis) {
       yield put(AnalysisAction.analysisStation(target));
     }
   } catch (error) {
     yield put(
-      StatusActions.setData({key: 'target', value: {state: false, code: ''}}),
+      StatusActions.setData({ key: 'target', value: { state: false, code: '' } }),
     );
   }
 }

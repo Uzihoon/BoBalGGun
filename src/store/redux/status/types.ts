@@ -1,6 +1,6 @@
-import {ActionType} from 'typesafe-actions';
+import { ActionType } from 'typesafe-actions';
 import * as actions from './actions';
-import {IImmutableMap} from '../types';
+import { IImmutableMap } from '../types';
 
 export type StatusAction = ActionType<typeof actions>;
 
@@ -8,6 +8,7 @@ export interface IStatusState {
   initialCheck: boolean;
   permission: null | string;
   target: null | ITarget;
+  isIos: null | boolean;
 }
 
 export type StatusState = IImmutableMap<IStatusState>;

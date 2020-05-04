@@ -66,3 +66,7 @@ src/config.ts
 
 functions/serviceAccountKey.json
 functions/src/config.ts
+
+# Deploy file
+android/app/release/
+android/app/appKey/

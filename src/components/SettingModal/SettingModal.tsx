@@ -10,7 +10,8 @@ function SettingModal({visible}: ISettingModalProps) {
   const handlePress = () => {
     Linking.canOpenURL('app-settings:')
       .then((supported) => {
-        Linking.openURL('app-settings:');
+        // Linking.openURL('app-settings:');
+        Linking.openSettings();
       })
       .catch((error) => {
         Linking.openSettings();

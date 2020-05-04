@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './styles';
-import {RESULTS, check, PERMISSIONS} from 'react-native-permissions';
+import { RESULTS, check, PERMISSIONS } from 'react-native-permissions';
 
 // Hooks
-import {useStatusGet} from 'src/hooks/lib';
+import { useStatusGet } from 'src/hooks/lib';
 
 // Components
-import {Text, View, Image, AppState, SafeAreaView} from 'react-native';
+import { Text, View, Image, AppState, SafeAreaView } from 'react-native';
 import Button from 'src/components/Button';
 import SettingModal from '../SettingModal';
 
@@ -14,8 +14,8 @@ import SettingModal from '../SettingModal';
 import Logo from 'src/assets/logo.png';
 import Placeholder from 'src/assets/placeholder.png';
 import Notification from 'src/assets/notification.png';
-import {pushLoading} from 'src/navigation';
-import {getPosition} from 'src/lib';
+import { pushLoading } from 'src/navigation';
+import { getPosition } from 'src/lib';
 
 interface IPermissionBox {
   title: string;
@@ -60,6 +60,7 @@ const permissionList: IPermissionBox[] = [
 function Permission() {
   const [visible, setVisible] = useState(false);
   const permission = useStatusGet('permission');
+  const isIos = useStatusGet('isIos');
 
   const buttonList = [
     {
@@ -77,8 +78,11 @@ function Permission() {
 
   const getPermission = async () => {
     try {
+      if (isIos === null) return;
       const location = await getPosition();
-      const result = await check(PERMISSIONS.IOS.LOCATION_ALWAYS);
+      const checkURL = isIos ? PERMISSIONS.IOS.LOCATION_ALWAYS : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
+
+      const result = await check(checkURL);
       return result;
     } catch (error) {
       return -1;
