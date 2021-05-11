@@ -13,7 +13,7 @@
     "@react-native-community/geolocation": "^2.0.2",
     "@types/react-native-loading-spinner-overlay": "^0.5.1",
     "@types/react-redux": "^7.1.7",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "firebase": "^7.14.1",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.21",
